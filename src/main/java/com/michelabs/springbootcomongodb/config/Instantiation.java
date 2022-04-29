@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import com.michelabs.springbootcomongodb.dto.AuthorDTO;
 import com.michelabs.springbootcomongodb.entities.Post;
 import com.michelabs.springbootcomongodb.entities.User;
 import com.michelabs.springbootcomongodb.repository.PostRepository;
@@ -38,8 +39,8 @@ public class Instantiation implements CommandLineRunner {
 		
 		postRepository.deleteAll();
 		
-		Post post1 = new Post(null, sdf.parse("21/03/2018"), "Partiu Viagem", "Vou viajar para SP. Abraçoes!", user1);
-		Post post2 = new Post(null, sdf.parse("23/03/2018"), "Bom dia", "Acordei feliz!", user1);		
+		Post post1 = new Post(null, sdf.parse("21/03/2018"), "Partiu Viagem", "Vou viajar para SP. Abraçoes!", new AuthorDTO(user1));
+		Post post2 = new Post(null, sdf.parse("23/03/2018"), "Bom dia", "Acordei feliz!", new AuthorDTO(user1));		
 		
 		postRepository.saveAll(Arrays.asList(post1, post2));		
 		
