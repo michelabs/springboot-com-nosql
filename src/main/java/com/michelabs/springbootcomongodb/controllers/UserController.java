@@ -1,5 +1,6 @@
 package com.michelabs.springbootcomongodb.controllers;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -7,8 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.michelabs.springbootcomongodb.dto.UserDTO;
 import com.michelabs.springbootcomongodb.entities.User;
@@ -34,4 +38,11 @@ public class UserController {
 		return ResponseEntity.ok().body(new UserDTO(user)); 		
 	}
 	
+	@PostMapping
+	public ResponseEntity<User> insertUser(@RequestBody UserDTO userDTO) {
+		User user = userService.userFromDTO(userDTO);
+		user = userService.insertUser(user);
+		URI userCreated = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(user.getId()).toUri();
+		return ResponseEntity.created(userCreated).body(user);
+	}	
 }
