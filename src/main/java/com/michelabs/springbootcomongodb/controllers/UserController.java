@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.michelabs.springbootcomongodb.dto.UserDTO;
+import com.michelabs.springbootcomongodb.entities.Post;
 import com.michelabs.springbootcomongodb.entities.User;
 import com.michelabs.springbootcomongodb.services.UserService;
 
@@ -62,4 +63,9 @@ public class UserController {
 		return ResponseEntity.noContent().build();
 	}	
 	
+	@GetMapping("/{id}/posts")
+	public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+		User user = userService.findUserById(id);
+		return ResponseEntity.ok().body(user.getPosts()); 		
+	}	
 }
