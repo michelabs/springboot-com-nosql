@@ -1,5 +1,6 @@
 package com.michelabs.springbootcomongodb.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,5 +19,9 @@ public class PostService {
 	public Post findPostById(String id) {
 		Optional<Post> post = postRepository.findById(id);		
 		return post.orElseThrow(() -> new ObjectNotFoundException("Post não encontrado"));
-	}	
+	}
+	
+	public List<Post> findPostByTitle(String text) {
+		return postRepository.findByTitleContainingIgnoreCase(text);
+	}
 }
