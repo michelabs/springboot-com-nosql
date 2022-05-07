@@ -8,6 +8,5 @@ public class SpringbootComMongoDbApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringbootComMongoDbApplication.class, args);
-	}
-
+	}	
 }
